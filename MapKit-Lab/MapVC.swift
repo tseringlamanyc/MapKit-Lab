@@ -15,58 +15,55 @@ class MapVC: UIViewController {
     
     private let locationSession = CoreLocationSession()
     
-     var highSchools = [SchoolData]()
+    public var highSchools = [SchoolData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        schoolView.delegate = self
         getSchools()
-//        loadMap()
+        loadMap()
         
     }
     
     private func getSchools() {
-        SchoolAPI.getSchools { [weak self] (result) in
+        SchoolAPI.getSchools { (result) in
             switch result {
             case .failure(_):
                 print("no data")
             case .success(let allSchools):
                 DispatchQueue.main.async {
-                    self?.highSchools = allSchools
+                    self.highSchools = allSchools
                     dump(allSchools)
                 }
             }
         }
     }
     
-//    private func loadMap() {
-//        let annotations = makeAnnotations()
-//        schoolView.addAnnotations(annotations)
-//    }
-//
-//    private func makeAnnotations() -> [MKPointAnnotation] {
-//        var annotations = [MKPointAnnotation]()
-//        for school in highSchools {
-//            let annotation = MKPointAnnotation()
-//            annotation.title = school.school_name
-//            locationSession.placemarkToCoordinate(address: school.location) { (result) in
-//                switch result {
-//                case .failure(_):
-//                    print("no address")
-//                case .success(let coordinate):
-//                    DispatchQueue.main.async {
-//                        annotation.coordinate = coordinate
-//                        dump(coordinate)
-//                    }
-//                }
-//            }
-//            annotations.append(annotation)
-//        }
-//        return annotations
-//    }
+    private func loadMap() {
+        let annotations = makeAnnotations()
+        schoolView.addAnnotations(annotations)
+    }
+    
+    private func makeAnnotations() -> [MKPointAnnotation] {
+        var annotations = [MKPointAnnotation]()
+        for school in highSchools {
+            let annotation = MKPointAnnotation()
+            annotation.title = school.school_name
+            locationSession.placemarkToCoordinate(address: school.location) { (result) in
+                switch result {
+                case .failure(_):
+                    print("no address")
+                case .success(let coordinate):
+                    DispatchQueue.main.async {
+                        annotation.coordinate = coordinate
+                        // set map view at given coordinate
+                        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1600, longitudinalMeters: 1600)
+                        self.schoolView.setRegion(region, animated: true)
+                        dump(coordinate)
+                    }
+                }
+            }
+            annotations.append(annotation)
+        }
+        return annotations
+    }
 }
-
-//extension MapVC: MKMapViewDelegate {
-//
-//}
-
