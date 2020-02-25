@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,9 @@
 		526910172404C6C100D354A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 526910162404C6C100D354A7 /* Assets.xcassets */; };
 		5269101A2404C6C100D354A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 526910182404C6C100D354A7 /* LaunchScreen.storyboard */; };
 		526910222404C86100D354A7 /* CorelocationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526910212404C86100D354A7 /* CorelocationSession.swift */; };
+		5269102A2404C96B00D354A7 /* ImageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 526910292404C96B00D354A7 /* ImageKit */; };
+		5269102D2404C9A400D354A7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269102C2404C9A400D354A7 /* Model.swift */; };
+		5269102F2404C9AD00D354A7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5269102E2404C9AD00D354A7 /* APIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,8 @@
 		526910192404C6C100D354A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5269101B2404C6C100D354A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		526910212404C86100D354A7 /* CorelocationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorelocationSession.swift; sourceTree = "<group>"; };
+		5269102C2404C9A400D354A7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		5269102E2404C9AD00D354A7 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5269102A2404C96B00D354A7 /* ImageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +64,7 @@
 		5269100C2404C6BD00D354A7 /* MapKit-Lab */ = {
 			isa = PBXGroup;
 			children = (
+				5269102B2404C98A00D354A7 /* Networks */,
 				5269100D2404C6BD00D354A7 /* AppDelegate.swift */,
 				5269100F2404C6BD00D354A7 /* SceneDelegate.swift */,
 				526910112404C6BD00D354A7 /* MapVC.swift */,
@@ -68,6 +75,15 @@
 				526910212404C86100D354A7 /* CorelocationSession.swift */,
 			);
 			path = "MapKit-Lab";
+			sourceTree = "<group>";
+		};
+		5269102B2404C98A00D354A7 /* Networks */ = {
+			isa = PBXGroup;
+			children = (
+				5269102C2404C9A400D354A7 /* Model.swift */,
+				5269102E2404C9AD00D354A7 /* APIClient.swift */,
+			);
+			path = Networks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +102,9 @@
 			dependencies = (
 			);
 			name = "MapKit-Lab";
+			packageProductDependencies = (
+				526910292404C96B00D354A7 /* ImageKit */,
+			);
 			productName = "MapKit-Lab";
 			productReference = 5269100A2404C6BD00D354A7 /* MapKit-Lab.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +133,9 @@
 				Base,
 			);
 			mainGroup = 526910012404C6BD00D354A7;
+			packageReferences = (
+				526910282404C96B00D354A7 /* XCRemoteSwiftPackageReference "ImageKit" */,
+			);
 			productRefGroup = 5269100B2404C6BD00D354A7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,10 +163,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5269102D2404C9A400D354A7 /* Model.swift in Sources */,
 				526910122404C6BD00D354A7 /* MapVC.swift in Sources */,
 				5269100E2404C6BD00D354A7 /* AppDelegate.swift in Sources */,
 				526910222404C86100D354A7 /* CorelocationSession.swift in Sources */,
 				526910102404C6BD00D354A7 /* SceneDelegate.swift in Sources */,
+				5269102F2404C9AD00D354A7 /* APIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +366,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		526910282404C96B00D354A7 /* XCRemoteSwiftPackageReference "ImageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexpaul/ImageKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		526910292404C96B00D354A7 /* ImageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 526910282404C96B00D354A7 /* XCRemoteSwiftPackageReference "ImageKit" */;
+			productName = ImageKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 526910022404C6BD00D354A7 /* Project object */;
 }
