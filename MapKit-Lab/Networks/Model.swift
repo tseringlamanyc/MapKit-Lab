@@ -13,4 +13,6 @@ struct SchoolData: Codable {
     let latitude: String
     let longitude: String
     let location: String
+    let city: String
+    let website: String
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class MapVC: UIViewController {
     
@@ -20,6 +21,7 @@ class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getSchools()
+        schoolView.delegate = self
     }
     
     private func getSchools() {
@@ -47,10 +49,38 @@ class MapVC: UIViewController {
         for school in highSchools {
             let annotation = MKPointAnnotation()
             annotation.title = school.school_name
+            annotation.subtitle = school.city
             let coordinate = CLLocationCoordinate2DMake(Double(school.latitude)!, Double(school.longitude)!)
             annotation.coordinate = coordinate
             annotations.append(annotation)
         }
         return annotations
+    }
+}
+
+extension MapVC: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        for school in highSchools {
+            let str = school.website
+            let url = URL(string: str)
+            let safariSchool = SFSafariViewController(url: url!)
+            present(safariSchool, animated: true)
+        }
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else {return nil}
+        let identifier = "annotationView"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.markerTintColor = .systemBlue
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
     }
 }
