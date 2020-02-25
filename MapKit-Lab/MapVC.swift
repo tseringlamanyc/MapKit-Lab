@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import MapKit
 
 class MapVC: UIViewController {
-
+    
+    @IBOutlet weak var schoolView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
 
