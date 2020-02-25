@@ -9,12 +9,14 @@
 import Foundation
 import NetworkHelper
 
-struct SchoolAPI {
-    static func getSchools(completion: @escaping (Result<[SchoolData], AppError>) -> ()) {
-        let endpointURL = "https://data.cityofnewyork.us/resource/uq7m-95z8.json"
+struct SchoolAPI{
+    
+    static func getSchools(completion: @escaping (Result <[SchoolData], AppError>) ->()) {
         
-        guard let url = URL(string: endpointURL) else {
-            completion(.failure(.badURL(endpointURL)))
+        let endpoint = "https://data.cityofnewyork.us/resource/uq7m-95z8.json"
+        
+        guard let url = URL(string: endpoint) else {
+            completion(.failure(.badURL(endpoint)))
             return
         }
         
@@ -25,13 +27,15 @@ struct SchoolAPI {
             case .failure(let appError):
                 completion(.failure(.networkClientError(appError)))
             case .success(let data):
+                // decode
                 do {
-                    let allSchools = try JSONDecoder().decode([SchoolData].self, from: data)
-                    completion(.success(allSchools))
+                    let schools = try JSONDecoder().decode([SchoolData].self, from: data)
+                    completion(.success(schools))
                 } catch {
                     completion(.failure(.decodingError(error)))
                 }
             }
         }
+        
     }
 }

@@ -20,8 +20,6 @@ class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getSchools()
-        loadMap()
-        
     }
     
     private func getSchools() {
@@ -32,7 +30,7 @@ class MapVC: UIViewController {
             case .success(let allSchools):
                 DispatchQueue.main.async {
                     self.highSchools = allSchools
-                    dump(allSchools)
+                    self.loadMap()
                 }
             }
         }
@@ -41,6 +39,7 @@ class MapVC: UIViewController {
     private func loadMap() {
         let annotations = makeAnnotations()
         schoolView.addAnnotations(annotations)
+        schoolView.showAnnotations(annotations, animated: true)
     }
     
     private func makeAnnotations() -> [MKPointAnnotation] {
@@ -48,20 +47,8 @@ class MapVC: UIViewController {
         for school in highSchools {
             let annotation = MKPointAnnotation()
             annotation.title = school.school_name
-            locationSession.placemarkToCoordinate(address: school.location) { (result) in
-                switch result {
-                case .failure(_):
-                    print("no address")
-                case .success(let coordinate):
-                    DispatchQueue.main.async {
-                        annotation.coordinate = coordinate
-                        // set map view at given coordinate
-                        let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1600, longitudinalMeters: 1600)
-                        self.schoolView.setRegion(region, animated: true)
-                        dump(coordinate)
-                    }
-                }
-            }
+            let coordinate = CLLocationCoordinate2DMake(Double(school.latitude)!, Double(school.longitude)!)
+            annotation.coordinate = coordinate
             annotations.append(annotation)
         }
         return annotations
